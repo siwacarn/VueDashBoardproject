@@ -1,15 +1,15 @@
 <template>
   <b-navbar class="header d-print-none app-header">
-    <!-- <b-nav> -->
-      <!-- <b-nav-item>
+    <b-nav>
+      <b-nav-item>
         <a class="d-md-down-none px-2" href="#" @click="toggleSidebarMethod" id="barsTooltip">
           <i class='la la-bars la-lg' />
         </a>
         <a class="fs-lg d-lg-none" href="#" @click="switchSidebarMethod">
           <i class="la la-bars la-lg" />
         </a>
-      </b-nav-item> -->
-    <!-- </b-nav> -->
+      </b-nav-item>
+    </b-nav>
     <b-nav>
       <b-form class="d-sm-down-none ml-5" inline>
         <b-form-group>
@@ -22,7 +22,7 @@
         </b-form-group>
       </b-form>
     </b-nav>
-    <a  class="navbarBrand d-md-none">
+    <!-- <a  class="navbarBrand d-md-none">
       <i class="fa fa-circle text-primary mr-n-sm" />
       <i class="fa fa-circle text-danger" />
       &nbsp;
@@ -30,7 +30,7 @@
       &nbsp;
       <i class="fa fa-circle text-danger mr-n-sm" />
       <i class="fa fa-circle text-primary" />
-    </a>
+    </a> -->
     <b-nav class="ml-auto">
       <b-nav-item-dropdown
         class="notificationsMenu d-md-down-none mr-2"

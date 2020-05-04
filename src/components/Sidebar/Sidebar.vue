@@ -1,67 +1,101 @@
 <template>
   <div class="sidebar-wrapper">
     <nav
-        :class="{sidebar: true, sidebarStatic, sidebarOpened}"
-        @mouseenter="sidebarMouseEnter"
-        @mouseleave="sidebarMouseLeave"
+      :class="{ sidebar: true, sidebarStatic, sidebarOpened }"
+      @mouseenter="sidebarMouseEnter"
+      @mouseleave="sidebarMouseLeave"
     >
       <header class="logo">
-        <router-link to="/app"><span class="primary-word">Sing App</span></router-link>
+        <router-link to="/app"
+          ><span class="primary-word">Farmming Dashboard</span></router-link
+        >
       </header>
       <ul class="nav">
         <NavLink
-            :activeItem="activeItem"
-            header="Dashboard"
-            link="/app/dashboard"
-            iconName="flaticon-home"
-            index="dashboard"
-            isHeader
+          :activeItem="activeItem"
+          header="Dashboard"
+          link="/app/dashboard"
+          iconName="flaticon-home"
+          index="dashboard"
+          isHeader
+        />
+        <!-- <NavLink
+          :activeItem="activeItem"
+          header="Typography"
+          link="/app/typography"
+          iconName="flaticon-list"
+          index="typography"
+          isHeader
+        /> -->
+        <!-- <NavLink
+          :activeItem="activeItem"
+          header="Tables Basic"
+          link="/app/tables"
+          iconName="flaticon-equal-1"
+          index="tables"
+          isHeader
+        /> -->
+        <NavLink
+          :activeItem="activeItem"
+          header="Notifications"
+          link="/app/notifications"
+          iconName="flaticon-star"
+          index="notifications"
+          isHeader
         />
         <NavLink
-            :activeItem="activeItem"
-            header="Typography"
-            link="/app/typography"
-            iconName="flaticon-list"
-            index="typography"
-            isHeader
+          :activeItem="activeItem"
+          header="Components"
+          link="/app/components"
+          iconName="flaticon-network"
+          index="components"
+          :childrenLinks="[
+            { header: 'Charts', link: '/app/components/charts' },
+            { header: 'Icons', link: '/app/components/icons' },
+            { header: 'Maps', link: '/app/components/maps' },
+          ]"
         />
         <NavLink
-            :activeItem="activeItem"
-            header="Tables Basic"
-            link="/app/tables"
-            iconName="flaticon-equal-1"
-            index="tables"
-            isHeader
+          :activeItem="activeItem"
+          header="Temperature"
+          link="/app/Temperature"
+          iconName=""
+          index="temperature"
+          isHeader
         />
-        <NavLink
-            :activeItem="activeItem"
-            header="Notifications"
-            link="/app/notifications"
-            iconName="flaticon-star"
-            index="notifications"
-            isHeader
+                <NavLink
+          :activeItem="activeItem"
+          header="Humidity"
+          link="/app/Humidity"
+          iconName=""
+          index="humidity"
+          isHeader
         />
-        <NavLink
-            :activeItem="activeItem"
-            header="Components"
-            link="/app/components"
-            iconName="flaticon-network"
-            index="components"
-            :childrenLinks="[
-              { header: 'Charts', link: '/app/components/charts' },
-              { header: 'Icons', link: '/app/components/icons' },
-              { header: 'Maps', link: '/app/components/maps' },
-            ]"
+                <NavLink
+          :activeItem="activeItem"
+          header="Soilmoisture"
+          link="/app/Soilmoisture"
+          iconName=""
+          index="soilmoisture"
+          isHeader
+        />
+                <NavLink
+          :activeItem="activeItem"
+          header="Lightlntensity"
+          link="/app/Lightlntensity"
+          iconName=""
+          index="lightlntensity"
+          isHeader
         />
       </ul>
       <p>
-      <h5 class="navTitle">
+        <!-- <h5 class="navTitle">
         LABELS
         <a class="actionLink">
           <i class="la la-plus float-right"/>
         </a>
-      </h5>
-      <ul class="sidebarLabels">
+      </h5> -->
+        <!-- <ul class="sidebarLabels">
         <li>
           <a href="#">
             <i class="fa fa-circle text-danger mr-2"/>
@@ -80,12 +114,14 @@
             <span class="labelName">Background</span>
           </a>
         </li>
-      </ul>
-      <h5 class="navTitle">
+      </ul> -->
+        <!-- <h5 class="navTitle">
         PROJECTS
-      </h5>
+      </h5> -->
+      </p>
+
       <div class="sidebarAlerts">
-        <b-alert
+        <!-- <b-alert
             v-for="alert in alerts"
             :key="alert.id"
             class="sidebarAlert" variant="transparent"
@@ -95,55 +131,55 @@
           <b-progress class="sidebarProgress progress-xs mt-1"
                       :variant="alert.color" :value="alert.value" :max="100"/>
           <small>{{alert.footer}}</small>
-        </b-alert>
+        </b-alert> -->
       </div>
     </nav>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import isScreen from '@/core/screenHelper';
-import NavLink from './NavLink/NavLink';
+import { mapState, mapActions } from "vuex";
+import isScreen from "@/core/screenHelper";
+import NavLink from "./NavLink/NavLink";
 
 export default {
-  name: 'Sidebar',
+  name: "Sidebar",
   components: { NavLink },
   data() {
     return {
       alerts: [
         {
           id: 0,
-          title: 'Sales Report',
+          title: "Sales Report",
           value: 15,
-          footer: 'Calculating x-axis bias... 65%',
-          color: 'danger',
+          footer: "Calculating x-axis bias... 65%",
+          color: "danger",
         },
         {
           id: 1,
-          title: 'Personal Responsibility',
+          title: "Personal Responsibility",
           value: 20,
-          footer: 'Provide required notes',
-          color: 'primary',
+          footer: "Provide required notes",
+          color: "primary",
         },
       ],
     };
   },
   methods: {
-    ...mapActions('layout', ['changeSidebarActive', 'switchSidebar']),
+    ...mapActions("layout", ["changeSidebarActive", "switchSidebar"]),
     setActiveByRoute() {
-      const paths = this.$route.fullPath.split('/');
+      const paths = this.$route.fullPath.split("/");
       paths.pop();
-      this.changeSidebarActive(paths.join('/'));
+      this.changeSidebarActive(paths.join("/"));
     },
     sidebarMouseEnter() {
-      if (!this.sidebarStatic && (isScreen('lg') || isScreen('xl'))) {
+      if (!this.sidebarStatic && (isScreen("lg") || isScreen("xl"))) {
         this.switchSidebar(false);
         this.setActiveByRoute();
       }
     },
     sidebarMouseLeave() {
-      if (!this.sidebarStatic && (isScreen('lg') || isScreen('xl'))) {
+      if (!this.sidebarStatic && (isScreen("lg") || isScreen("xl"))) {
         this.switchSidebar(true);
         this.changeSidebarActive(null);
       }
@@ -153,14 +189,14 @@ export default {
     this.setActiveByRoute();
   },
   computed: {
-    ...mapState('layout', {
-      sidebarStatic: state => state.sidebarStatic,
-      sidebarOpened: state => !state.sidebarClose,
-      activeItem: state => state.sidebarActiveElement,
+    ...mapState("layout", {
+      sidebarStatic: (state) => state.sidebarStatic,
+      sidebarOpened: (state) => !state.sidebarClose,
+      activeItem: (state) => state.sidebarActiveElement,
     }),
   },
 };
 </script>
 
 <!-- Sidebar styles should be scoped -->
-<style src="./Sidebar.scss" lang="scss" scoped/>
+<style src="./Sidebar.scss" lang="scss" scoped />
