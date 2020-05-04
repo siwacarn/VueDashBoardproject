@@ -63,7 +63,7 @@
           index="temperature"
           isHeader
         />
-                <NavLink
+        <NavLink
           :activeItem="activeItem"
           header="Humidity"
           link="/app/Humidity"
@@ -71,7 +71,7 @@
           index="humidity"
           isHeader
         />
-                <NavLink
+        <NavLink
           :activeItem="activeItem"
           header="Soilmoisture"
           link="/app/Soilmoisture"
@@ -79,7 +79,7 @@
           index="soilmoisture"
           isHeader
         />
-                <NavLink
+        <NavLink
           :activeItem="activeItem"
           header="Lightlntensity"
           link="/app/Lightlntensity"
