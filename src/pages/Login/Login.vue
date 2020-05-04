@@ -61,6 +61,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Widget from "@/components/Widget/Widget";
 import axios from "axios";
 
@@ -83,35 +84,30 @@ export default {
       const username = this.$refs.username.value;
       const password = this.$refs.password.value;
 
-      if (username.length !== 0 && password.length !== 0) {
-        window.localStorage.setItem("authenticated", true);
-        this.$router.push("/app/dashboard");
-      }
-      let test = {
+      let payload = {
         "username": username,
         "password": password,
       };
 
-      // eslint-disable-next-line no-console
-      console.log(username);
-      // eslint-disable-next-line no-console
-      console.log(password);
-
-      AxiosAPI.post("/login", test)
+      AxiosAPI.post("/login", payload)
         .then((res) => {
-          // eslint-disable-next-line no-console
-          console.log(res);
+          // if status ok can go!
+          if (res.status == 200) {
+            window.localStorage.setItem("authenticated", true);
+            this.$router.push("/app/dashboard");
+          }
         })
         .catch((e) => {
-          // eslint-disable-next-line no-console
-          console.log(e);
+          console.log('cannot login with, ' + e)
+          this.$toasted.success('connot login with username or password', {
+            action: {
+              text: 'Close',
+              onClick: (e, toastObject) => {
+                toastObject.goAway(0);
+              }
+            }})
         });
     },
   },
-  // created() {
-  //   if (window.localStorage.getItem('authenticated') === 'true') {
-  //     this.$router.push('/app/main/analytics');
-  //   }
-  // },
 };
 </script>

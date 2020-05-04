@@ -4,8 +4,8 @@
     <b-row>
       <b-col lg="3" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Visits Today" close>
-            <div class="d-flex justify-content-between align-items-center mb-lg">
+          <Widget class="h-100 mb-0" title="Temperature" close>
+            <!-- <div class="d-flex justify-content-between align-items-center mb-lg">
               <h2>4,332</h2>
               <i class="la la-arrow-right text-primary la-lg rotate-315" />
             </div>
@@ -19,21 +19,21 @@
               <div class="mt">
                 <h6>4.5%</h6><p class="text-muted mb-0 mr"><small>Rate</small></p>
               </div>
-            </div>
+            </div> -->
           </Widget>
         </div>
       </b-col>
       <b-col lg="3" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Revenue Breakdown" close>
-            <highcharts :options="donut"></highcharts>
+          <Widget class="h-100 mb-0" title="Humidity" close>
+            <!-- <highcharts :options="donut"></highcharts> -->
           </Widget>
         </div>
       </b-col>
       <b-col lg="3" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="App Perfomance" close>
-            <p class="text-muted d-flex flex-wrap">
+          <Widget class="h-100 mb-0" title="Soilmoisture" close>
+            <!-- <p class="text-muted d-flex flex-wrap">
               <small class="mr-lg d-flex align-items-center">
                 <span class="circle bg-danger text-danger mr-xs" style="font-size: 4px;">
                   .
@@ -56,14 +56,14 @@
             <b-progress class="mb-xs" style="height: 5px"
               variant="danger" :value="40" :max="100" />
             <b-progress style="height: 5px"
-              variant="primary" :value="55" :max="100" />
+              variant="primary" :value="55" :max="100" /> -->
           </Widget>
         </div>
       </b-col>
       <b-col lg="3" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Server Overview" close>
-            <div class="d-flex align-items-center mb-sm">
+          <Widget class="h-100 mb-0" title="Ligth Intensity" close>
+            <!-- <div class="d-flex align-items-center mb-sm">
               <p class="width-150"><small>60% / 37°С / 3.3 Ghz</small></p>
               <div style="width: calc(100% - 150px)">
                 <trend
@@ -95,7 +95,7 @@
                   stroke-width="4"
                   smooth />
               </div>
-            </div>
+            </div> -->
           </Widget>
         </div>
       </b-col>
@@ -113,7 +113,7 @@
     </b-row>
     <b-row>
         <b-col xs="12">
-          <Widget
+          <!-- <Widget
             title="<h5>Support <span class='fw-semi-bold'>Requests</span></h5>"
             bodyClass="widget-table-overflow"
             customHeader
@@ -156,7 +156,7 @@
                 </tbody>
               </table>
             </div>
-          </Widget>
+          </Widget> -->
         </b-col>
       </b-row>
   </div>
