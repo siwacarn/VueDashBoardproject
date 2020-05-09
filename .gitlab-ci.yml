@@ -1,0 +1,34 @@
+# gitlab-ci modified by BigBoss
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - develop
+  - master
+
+variables:
+  DEVELOP_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+  RELEASE_IMAGE: $CI_REGISTRY_IMAGE:stable
+
+before_script:
+  - docker info
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+develop:
+  stage: develop
+  script:
+    - docker build --pull -t $DEVELOP_IMAGE .
+    - docker push $DEVELOP_IMAGE
+  only:
+    - develop
+   
+master:
+  stage: master
+  script:
+    - docker build --pull -t $DEVELOP_IMAGE .
+    - docker tag $DEVELOP_IMAGE $RELEASE_IMAGE
+    - docker push $RELEASE_IMAGE
+  only:
+    - master
