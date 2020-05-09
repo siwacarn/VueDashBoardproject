@@ -19,6 +19,14 @@
           index="dashboard"
           isHeader
         />
+        <NavLink
+          :activeItem="activeItem"
+          header="Real Time Dashboard"
+          link="/app/RealtimeDashboard"
+          iconName="flaticon-home"
+          index="dashboard"
+          isHeader
+        />
         <!-- <NavLink
           :activeItem="activeItem"
           header="Typography"
@@ -35,90 +43,9 @@
           index="tables"
           isHeader
         /> -->
-        <NavLink
-          :activeItem="activeItem"
-          header="Notifications"
-          link="/app/notifications"
-          iconName="flaticon-star"
-          index="notifications"
-          isHeader
-        />
-        <NavLink
-          :activeItem="activeItem"
-          header="Components"
-          link="/app/components"
-          iconName="flaticon-network"
-          index="components"
-          :childrenLinks="[
-            { header: 'Charts', link: '/app/components/charts' },
-            { header: 'Icons', link: '/app/components/icons' },
-            { header: 'Maps', link: '/app/components/maps' },
-          ]"
-        />
-        <NavLink
-          :activeItem="activeItem"
-          header="Temperature"
-          link="/app/Temperature"
-          iconName=""
-          index="temperature"
-          isHeader
-        />
-        <NavLink
-          :activeItem="activeItem"
-          header="Humidity"
-          link="/app/Humidity"
-          iconName=""
-          index="humidity"
-          isHeader
-        />
-        <NavLink
-          :activeItem="activeItem"
-          header="Soilmoisture"
-          link="/app/Soilmoisture"
-          iconName=""
-          index="soilmoisture"
-          isHeader
-        />
-        <NavLink
-          :activeItem="activeItem"
-          header="Lightlntensity"
-          link="/app/Lightlntensity"
-          iconName=""
-          index="lightlntensity"
-          isHeader
-        />
+       
       </ul>
-      <p>
-        <!-- <h5 class="navTitle">
-        LABELS
-        <a class="actionLink">
-          <i class="la la-plus float-right"/>
-        </a>
-      </h5> -->
-        <!-- <ul class="sidebarLabels">
-        <li>
-          <a href="#">
-            <i class="fa fa-circle text-danger mr-2"/>
-            <span class="labelName">My Recent</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-circle text-primary mr-2"/>
-            <span class="labelName">Starred</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-circle mr-2"/>
-            <span class="labelName">Background</span>
-          </a>
-        </li>
-      </ul> -->
-        <!-- <h5 class="navTitle">
-        PROJECTS
-      </h5> -->
-      </p>
+    
 
       <div class="sidebarAlerts">
         <!-- <b-alert

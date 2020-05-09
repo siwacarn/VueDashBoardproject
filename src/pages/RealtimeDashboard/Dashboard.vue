@@ -2,80 +2,41 @@
   <div class="dashboard-page">
     <h1 class="page-title">Dashboard</h1>
     <b-row>
-      <b-col lg="3" sm="6" xs="12">
+      <b-col lg="12" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Temperature (Celsius)" close>
+          <Widget class="h-100 mb-0" title="Temperature" close>
             <echart :options="line1" :init-options="initEchartsOptions" style="height: 370px"></echart>
+          
           </Widget>
         </div>
       </b-col>
-      <b-col lg="3" sm="6" xs="12">
+      <b-col lg="12" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Humidity (%)" close>
+          <Widget class="h-100 mb-0" title="Humidity" close>
             <echart :options="line2" :init-options="initEchartsOptions" style="height: 370px"></echart>
+         
           </Widget>
         </div>
       </b-col>
-      <b-col lg="3" sm="6" xs="12">
+      <b-col lg="12" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Soilmoisture (%)" close>
+          <Widget class="h-100 mb-0" title="Soilmoisture" close>
             <echart :options="line3" :init-options="initEchartsOptions" style="height: 370px"></echart>
+           
           </Widget>
         </div>
       </b-col>
-      <b-col lg="3" sm="6" xs="12">
+      <b-col lg="12" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Ligth Intensity (Lux)" close>
+          <Widget class="h-100 mb-0" title="Ligth Intensity" close>
             <echart :options="line4" :init-options="initEchartsOptions" style="height: 370px"></echart>
+         
           </Widget>
         </div>
       </b-col>
     </b-row>
-    <b-row>
-      <b-col xs="12" lg="6" xl="4"></b-col>
-    </b-row>
-    <b-row>
-      <b-col lg="6">
-        <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Set Threshold" close>
-            <div class="w-80 p-3">
-              <span>Light Intensity</span>
-              <b-form-input v-model="lightthreshold" placeholder></b-form-input>
-            </div>
-
-            <div class="w-80 p-3">
-              <span>Soil Moisture</span>
-              <b-form-input v-model="soilmoisturethreshold" placeholder></b-form-input>
-            </div>
-            <div class="w-80 p-3">
-              <b-button variant="info" @click="clickSetthreshold()">Submit</b-button>
-            </div>
-          </Widget>
-        </div>
-      </b-col>
-      <b-col lg="3">
-        <div class="pb-xlg h-100">
-          <Widget class="h-70 mb-0" title="Light Intensity Threshold" close>
-            <div class="w-80 p-3 text-center">
-              <h1 class="display-1">
-                <strong>{{ lightthreshold2 }} Lux</strong>
-              </h1>
-            </div>
-          </Widget>
-        </div>
-      </b-col>
-      <b-col lg="3">
-        <div class="pb-xlg h-100">
-          <Widget class="h-70 mb-0" title="Soil Moisture Threshold" close>
-            <div class="w-80 p-3 text-center">
-              <h1 class="display-1">
-                <strong>{{ soilmoisturethreshold2 }} %</strong>
-              </h1>
-            </div>
-          </Widget>
-        </div>
-      </b-col>
-    </b-row>
+    
+   
   </div>
 </template>
 
@@ -100,10 +61,10 @@ const chartColors = config.app.chartColors;
 const { axisColor } = chartColors;
 import axios from "axios";
 const AxiosAPI = axios.create({
-  baseURL: "https://api.inwza.club",
-  timeout: 1000,
-  headers: { "Content-Type": "application/json" }
-});
+        baseURL: "https://api.inwza.club",
+        timeout: 1000,
+        headers: { "Content-Type": "application/json" },
+      });
 
 let lineColors = [primary, success, warning];
 
@@ -121,11 +82,6 @@ export default {
       initEchartsOptions: {
         renderer: "canvas"
       },
-      lightthreshold: "",
-      soilmoisturethreshold: "",
-      lightthreshold2: "",
-      soilmoisturethreshold2: "",
-
       line1: {
         color: lineColors,
         tooltip: {
@@ -164,7 +120,9 @@ export default {
                 }
               }
             },
-            data: []
+            data: [
+              
+            ]
           }
         ],
         yAxis: [
@@ -185,7 +143,9 @@ export default {
             name: "2016 Precipitation",
             type: "line",
             smooth: true,
-            data: []
+            data: [
+              
+            ]
           }
         ]
       },
@@ -227,7 +187,8 @@ export default {
                 }
               }
             },
-            data: []
+            data: [
+            ]
           }
         ],
         yAxis: [
@@ -248,7 +209,8 @@ export default {
             name: "2016 Precipitation",
             type: "line",
             smooth: true,
-            data: []
+            data: [
+            ]
           }
         ]
       },
@@ -290,7 +252,8 @@ export default {
                 }
               }
             },
-            data: []
+            data: [
+            ]
           }
         ],
         yAxis: [
@@ -311,7 +274,8 @@ export default {
             name: "2016 Precipitation",
             type: "line",
             smooth: true,
-            data: []
+            data: [
+            ]
           }
         ]
       },
@@ -353,7 +317,8 @@ export default {
                 }
               }
             },
-            data: []
+            data: [
+            ]
           }
         ],
         yAxis: [
@@ -374,7 +339,8 @@ export default {
             name: "2016 Precipitation",
             type: "line",
             smooth: true,
-            data: []
+            data: [
+            ]
           }
         ]
       }
@@ -385,91 +351,70 @@ export default {
   },
   methods: {
     async getData() {
-      var d = [];
-      var c = 0;
-
-      for (let i = 14; i >= 0; i--) {
-        d.push(new Date());
-        d[c].setDate(d[c].getDate() - i);
-
-        var temp =
-          d[c].getFullYear() +
-          "-" +
-          this.appendLeadingZeroes(d[c].getMonth() + 1) +
-          "-" +
-          this.appendLeadingZeroes(d[c].getDate()) +
-          "T00:00:00Z";
-        let payload = {
-          created_at: temp
-        };
-        c++;
-        await AxiosAPI.post("/sensors/date", payload)
+     
+      //for(let i = 20 ; i > 0 ; i--) {
+       // d.push(date);
+       // d[c].setDate(d[c].getDate() - 1);
+        // eslint-disable-next-line no-console
+       // console.log(i+" ")
+            // eslint-disable-next-line no-console
+        //console.log(d[c].getFullYear()+"-"+this.appendLeadingZeroes(d[c].getMonth()+1)+"-"+this.appendLeadingZeroes(d[c].getDate())+"T00:00:00Z");
+       //var temp = d[c].getFullYear()+"-"+this.appendLeadingZeroes(d[c].getMonth()+1)+"-"+this.appendLeadingZeroes(d[c].getDate())+"T00:00:00Z"
+       
+       // c++
+        await AxiosAPI.get("/sensors")
           //await HTTP.get(`get/customer/${1}`)
           .then(res => {
-            var a = 0;
-            var b = 0;
-            var c = 0;
-            var d = 0;
-            for (var i = 0; i < res.data.length; i++) {
-              a += res.data[i].temperature;
-              b += res.data[i].humidity;
-              c += res.data[i].soilmoisture;
-              d += res.data[i].light;
-            }
+            // eslint-disable-next-line no-console
+            //console.log(res.data);
+            
+            
+            for (var i=res.data.length-1;i>=0;i--){
 
             // eslint-disable-next-line no-console
-            console.log(a / res.data.length);
-            this.line1.series[0].data.push(a / res.data.length);
-            this.line2.series[0].data.push(b / res.data.length);
-            this.line3.series[0].data.push(c / res.data.length);
-            this.line4.series[0].data.push(d / res.data.length);
+            console.log(res.data[i].temperature)
+            this.line1.series[0].data.push(res.data[i].temperature)
+            this.line2.series[0].data.push(res.data[i].humidity)
+            this.line3.series[0].data.push(res.data[i].soilmoisture)
+            this.line4.series[0].data.push(res.data[i].light)
             // eslint-disable-next-line no-console
-            console.log(temp.split("T")[0]);
-            this.line1.xAxis[0].data.push(temp.split("T")[0]); //2020-05-08T00:00:00Z
-            this.line2.xAxis[0].data.push(temp.split("T")[0]);
-            this.line3.xAxis[0].data.push(temp.split("T")[0]);
-            this.line4.xAxis[0].data.push(temp.split("T")[0]);
+            //console.log(new date(res.data[i].created_at+"+07:00"))
+
+            var aestTime = new Date(res.data[i].created_at).toLocaleString("th-TH", {timeZone: "Asia/Bangkok"});
+            // eslint-disable-next-line no-console
+            console.log('Thai time: '+ new Date(aestTime))
+            //new date(res.data[i].created_at+"+07:00")
+            //new Date(aestTime)
+            let d = new Date(aestTime);
+            let date = d.getHours()+":"+this.setMinutesthis(d.getMinutes())
+            this.line1.xAxis[0].data.push(date)
+            this.line2.xAxis[0].data.push(date)
+            this.line3.xAxis[0].data.push(date)
+            this.line4.xAxis[0].data.push(date)
+            }
+            // eslint-disable-next-line no-console
+            //console.log(this.line1.xAxis[0].data)
+            // eslint-disable-next-line no-console
+            //console.log(this.line1.series[0].data)
+           
+            // eslint-disable-next-line no-console
+            
             //this.caseVisit = res.data.result
           })
           .catch(e => {
             // eslint-disable-next-line no-console
             console.log(e);
-          });
+         });
+      //}
       
       
-      }
-
-      await AxiosAPI.get("/get/threshold")
-          //await HTTP.get(`get/customer/${1}`)
-          .then(res => {
-            // eslint-disable-next-line no-console
-            console.log(res.data.lightthreshold)
-            this.lightthreshold2 = res.data.lightthreshold
-            this.soilmoisturethreshold2 = res.data.soilmoisturethreshold
-          })
-          .catch(e => {
-            // eslint-disable-next-line no-console
-            console.log(e);
-          });
     },
-    clickSetthreshold() {
-      let payload = {
-        "lightthreshold": Number(this.lightthreshold),
-        "soilmoisturethreshold": Number(this.soilmoisturethreshold)
+    // eslint-disable-next-line no-unused-vars
+    setMinutesthis(m) {
+      if(m<10){
+        return "0"+m
       }
-      // eslint-disable-next-line no-console
-      console.log(payload)
-      AxiosAPI.post("/set/threshold",payload)
-          //await HTTP.get(`get/customer/${1}`)
-          .then(res => {
-            // eslint-disable-next-line no-console
-            console.log(res)
-            location.reload()
-          })
-          .catch(e => {
-            // eslint-disable-next-line no-console
-            console.log(e)
-          });
+      return m
     },
     getRandomData() {
       const arr = [];
@@ -495,11 +440,11 @@ export default {
       return data;
     },
     appendLeadingZeroes(n) {
-      if (n <= 9) {
+      if(n <= 9){
         return "0" + n;
       }
-      return n;
-    }
+      return n
+}
   },
   computed: {
     donut() {

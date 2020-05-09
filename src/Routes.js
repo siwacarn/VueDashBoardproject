@@ -16,6 +16,9 @@ import GoogleMapPage from '@/pages/Maps/Google';
 // Main
 import AnalyticsPage from '@/pages/Dashboard/Dashboard';
 
+// Main
+import AllAnalyticsPage from '@/pages/RealtimeDashboard/Dashboard';
+
 // Charts
 import ChartsPage from '@/pages/Charts/Charts';
 
@@ -47,6 +50,11 @@ export default new Router({
           path: 'dashboard',
           name: 'AnalyticsPage',
           component: AnalyticsPage,
+        },
+        {
+          path: 'RealtimeDashboard',
+          name: 'AllAnalyticsPage',
+          component: AllAnalyticsPage,
         },
         {
           path: 'typography',
