@@ -4,29 +4,93 @@
     <b-row>
       <b-col lg="3" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Temperature (Celsius)" close>
-            <echart :options="line1" :init-options="initEchartsOptions" style="height: 370px"></echart>
+          <Widget class="h-100 mb-0" title="Temperature Now (Celsius)" close>
+            <div class="w-80 p-3 text-center">
+              <h1 class="display-3">
+                <strong>{{ TempNow }}</strong>
+              </h1>
+            </div>
           </Widget>
         </div>
       </b-col>
       <b-col lg="3" sm="6" xs="12">
         <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Humidity (%)" close>
-            <echart :options="line2" :init-options="initEchartsOptions" style="height: 370px"></echart>
+          <Widget class="h-100 mb-0" title="Humidity Now (%RH)" close>
+            <div class="w-80 p-3 text-center">
+              <h1 class="display-3">
+                <strong>{{ HumidNow }}</strong>
+              </h1>
+            </div>
+          </Widget>
+        </div>
+      </b-col>
+      <b-col lg="3" sm="6" xs="12">
+        <div class="pb-xlg h-100">
+          <Widget class="h-100 mb-0" title="Soilmoisture Now (%)" close>
+            <div class="w-80 p-3 text-center">
+              <h1 class="display-3">
+                <strong>{{ SoilNow }}</strong>
+              </h1>
+            </div>
+          </Widget>
+        </div>
+      </b-col>
+      <b-col lg="3" sm="6" xs="12">
+        <div class="pb-xlg h-100">
+          <Widget class="h-100 mb-0" title="Ligth Intensity Now (Lux)" close>
+            <div class="w-80 p-3 text-center">
+              <h1 class="display-3">
+                <strong>{{ LightNow }}</strong>
+              </h1>
+            </div>
+          </Widget>
+        </div>
+      </b-col>
+    </b-row>
+
+    <!-- ส่วนกราฟ -->
+    <b-row>
+      <b-col lg="3" sm="6" xs="12">
+        <div class="pb-xlg h-100">
+          <Widget class="h-100 mb-0" title="Temperature (Celsius)" close>
+            <echart
+              :options="line1"
+              :init-options="initEchartsOptions"
+              style="height: 370px"
+            ></echart>
+          </Widget>
+        </div>
+      </b-col>
+      <b-col lg="3" sm="6" xs="12">
+        <div class="pb-xlg h-100">
+          <Widget class="h-100 mb-0" title="Humidity (%RH)" close>
+            <echart
+              :options="line2"
+              :init-options="initEchartsOptions"
+              style="height: 370px"
+            ></echart>
           </Widget>
         </div>
       </b-col>
       <b-col lg="3" sm="6" xs="12">
         <div class="pb-xlg h-100">
           <Widget class="h-100 mb-0" title="Soilmoisture (%)" close>
-            <echart :options="line3" :init-options="initEchartsOptions" style="height: 370px"></echart>
+            <echart
+              :options="line3"
+              :init-options="initEchartsOptions"
+              style="height: 370px"
+            ></echart>
           </Widget>
         </div>
       </b-col>
       <b-col lg="3" sm="6" xs="12">
         <div class="pb-xlg h-100">
           <Widget class="h-100 mb-0" title="Ligth Intensity (Lux)" close>
-            <echart :options="line4" :init-options="initEchartsOptions" style="height: 370px"></echart>
+            <echart
+              :options="line4"
+              :init-options="initEchartsOptions"
+              style="height: 370px"
+            ></echart>
           </Widget>
         </div>
       </b-col>
@@ -45,10 +109,15 @@
 
             <div class="w-80 p-3">
               <span>Soil Moisture</span>
-              <b-form-input v-model="soilmoisturethreshold" placeholder></b-form-input>
+              <b-form-input
+                v-model="soilmoisturethreshold"
+                placeholder
+              ></b-form-input>
             </div>
             <div class="w-80 p-3">
-              <b-button variant="info" @click="clickSetthreshold()">Submit</b-button>
+              <b-button variant="info" @click="clickSetthreshold()"
+                >Submit</b-button
+              >
             </div>
           </Widget>
         </div>
@@ -80,6 +149,7 @@
 </template>
 
 <script>
+ /* eslint-disable */
 import Widget from "@/components/Widget/Widget";
 import BigStat from "./components/BigStat/BigStat";
 import mock from "./mock";
@@ -102,7 +172,7 @@ import axios from "axios";
 const AxiosAPI = axios.create({
   baseURL: "https://api.inwza.club",
   timeout: 1000,
-  headers: { "Content-Type": "application/json" }
+  headers: { "Content-Type": "application/json" },
 });
 
 let lineColors = [primary, success, warning];
@@ -113,43 +183,49 @@ export default {
     Widget,
     BigStat,
     highcharts: Chart,
-    echart: ECharts
+    echart: ECharts,
   },
   data() {
     return {
       mock,
       initEchartsOptions: {
-        renderer: "canvas"
+        renderer: "canvas",
       },
       lightthreshold: "",
       soilmoisturethreshold: "",
       lightthreshold2: "",
       soilmoisturethreshold2: "",
+      TempNow: "",
+      HumidNow: "",
+      SoilNow: "",
+      LightNow: "",
+
+
 
       line1: {
         color: lineColors,
         tooltip: {
           trigger: "none",
           axisPointer: {
-            type: "cross"
-          }
+            type: "cross",
+          },
         },
 
         grid: {
           top: 70,
-          bottom: 50
+          bottom: 50,
         },
         xAxis: [
           {
             type: "category",
             axisTick: {
-              alignWithLabel: true
+              alignWithLabel: true,
             },
             axisLine: {
               onZero: false,
               lineStyle: {
-                color: lineColors[1]
-              }
+                color: lineColors[1],
+              },
             },
             axisPointer: {
               label: {
@@ -161,58 +237,58 @@ export default {
                       ? "：" + params.seriesData[0].data
                       : "")
                   );
-                }
-              }
+                },
+              },
             },
-            data: []
-          }
+            data: [],
+          },
         ],
         yAxis: [
           {
             type: "value",
             axisLabel: {
-              color: axisColor
+              color: axisColor,
             },
             axisLine: {
               lineStyle: {
-                color: axisColor
-              }
-            }
-          }
+                color: axisColor,
+              },
+            },
+          },
         ],
         series: [
           {
             name: "2016 Precipitation",
             type: "line",
             smooth: true,
-            data: []
-          }
-        ]
+            data: [],
+          },
+        ],
       },
       line2: {
         color: lineColors,
         tooltip: {
           trigger: "none",
           axisPointer: {
-            type: "cross"
-          }
+            type: "cross",
+          },
         },
 
         grid: {
           top: 70,
-          bottom: 50
+          bottom: 50,
         },
         xAxis: [
           {
             type: "category",
             axisTick: {
-              alignWithLabel: true
+              alignWithLabel: true,
             },
             axisLine: {
               onZero: false,
               lineStyle: {
-                color: lineColors[1]
-              }
+                color: lineColors[1],
+              },
             },
             axisPointer: {
               label: {
@@ -224,58 +300,58 @@ export default {
                       ? "：" + params.seriesData[0].data
                       : "")
                   );
-                }
-              }
+                },
+              },
             },
-            data: []
-          }
+            data: [],
+          },
         ],
         yAxis: [
           {
             type: "value",
             axisLabel: {
-              color: axisColor
+              color: axisColor,
             },
             axisLine: {
               lineStyle: {
-                color: axisColor
-              }
-            }
-          }
+                color: axisColor,
+              },
+            },
+          },
         ],
         series: [
           {
             name: "2016 Precipitation",
             type: "line",
             smooth: true,
-            data: []
-          }
-        ]
+            data: [],
+          },
+        ],
       },
       line3: {
         color: lineColors,
         tooltip: {
           trigger: "none",
           axisPointer: {
-            type: "cross"
-          }
+            type: "cross",
+          },
         },
 
         grid: {
           top: 70,
-          bottom: 50
+          bottom: 50,
         },
         xAxis: [
           {
             type: "category",
             axisTick: {
-              alignWithLabel: true
+              alignWithLabel: true,
             },
             axisLine: {
               onZero: false,
               lineStyle: {
-                color: lineColors[1]
-              }
+                color: lineColors[1],
+              },
             },
             axisPointer: {
               label: {
@@ -287,58 +363,58 @@ export default {
                       ? "：" + params.seriesData[0].data
                       : "")
                   );
-                }
-              }
+                },
+              },
             },
-            data: []
-          }
+            data: [],
+          },
         ],
         yAxis: [
           {
             type: "value",
             axisLabel: {
-              color: axisColor
+              color: axisColor,
             },
             axisLine: {
               lineStyle: {
-                color: axisColor
-              }
-            }
-          }
+                color: axisColor,
+              },
+            },
+          },
         ],
         series: [
           {
             name: "2016 Precipitation",
             type: "line",
             smooth: true,
-            data: []
-          }
-        ]
+            data: [],
+          },
+        ],
       },
       line4: {
         color: lineColors,
         tooltip: {
           trigger: "none",
           axisPointer: {
-            type: "cross"
-          }
+            type: "cross",
+          },
         },
 
         grid: {
           top: 70,
-          bottom: 50
+          bottom: 50,
         },
         xAxis: [
           {
             type: "category",
             axisTick: {
-              alignWithLabel: true
+              alignWithLabel: true,
             },
             axisLine: {
               onZero: false,
               lineStyle: {
-                color: lineColors[1]
-              }
+                color: lineColors[1],
+              },
             },
             axisPointer: {
               label: {
@@ -350,34 +426,34 @@ export default {
                       ? "：" + params.seriesData[0].data
                       : "")
                   );
-                }
-              }
+                },
+              },
             },
-            data: []
-          }
+            data: [],
+          },
         ],
         yAxis: [
           {
             type: "value",
             axisLabel: {
-              color: axisColor
+              color: axisColor,
             },
             axisLine: {
               lineStyle: {
-                color: axisColor
-              }
-            }
-          }
+                color: axisColor,
+              },
+            },
+          },
         ],
         series: [
           {
             name: "2016 Precipitation",
             type: "line",
             smooth: true,
-            data: []
-          }
-        ]
-      }
+            data: [],
+          },
+        ],
+      },
     };
   },
   mounted() {
@@ -400,12 +476,12 @@ export default {
           this.appendLeadingZeroes(d[c].getDate()) +
           "T00:00:00Z";
         let payload = {
-          created_at: temp
+          created_at: temp,
         };
         c++;
         await AxiosAPI.post("/sensors/date", payload)
           //await HTTP.get(`get/customer/${1}`)
-          .then(res => {
+          .then((res) => {
             var a = 0;
             var b = 0;
             var c = 0;
@@ -431,45 +507,56 @@ export default {
             this.line4.xAxis[0].data.push(temp.split("T")[0]);
             //this.caseVisit = res.data.result
           })
-          .catch(e => {
+          .catch((e) => {
             // eslint-disable-next-line no-console
             console.log(e);
           });
-      
-      
       }
 
       await AxiosAPI.get("/get/threshold")
-          //await HTTP.get(`get/customer/${1}`)
-          .then(res => {
-            // eslint-disable-next-line no-console
-            console.log(res.data.lightthreshold)
-            this.lightthreshold2 = res.data.lightthreshold
-            this.soilmoisturethreshold2 = res.data.soilmoisturethreshold
-          })
-          .catch(e => {
-            // eslint-disable-next-line no-console
-            console.log(e);
-          });
+        //await HTTP.get(`get/customer/${1}`)
+        .then((res) => {
+          // eslint-disable-next-line no-console
+          console.log(res.data.lightthreshold);
+          this.lightthreshold2 = res.data.lightthreshold;
+          this.soilmoisturethreshold2 = res.data.soilmoisturethreshold;
+        })
+        .catch((e) => {
+          // eslint-disable-next-line no-console
+          console.log(e);
+        });
+      await AxiosAPI.get("/sensors")
+      .then(res => {
+        for (var i = res.data.length-1;i>=0;i--){
+        console.log(res.data[i].temperature)
+        this.TempNow = Number(res.data[0].temperature)
+        this.HumidNow = Number(res.data[0].humidity)
+        this.SoilNow = Number(res.data[0].soilmoisture)
+        this.LightNow = Number(res.data[0].light)
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      })
     },
     clickSetthreshold() {
       let payload = {
-        "lightthreshold": Number(this.lightthreshold),
-        "soilmoisturethreshold": Number(this.soilmoisturethreshold)
-      }
+        lightthreshold: Number(this.lightthreshold),
+        soilmoisturethreshold: Number(this.soilmoisturethreshold),
+      };
       // eslint-disable-next-line no-console
-      console.log(payload)
-      AxiosAPI.post("/set/threshold",payload)
-          //await HTTP.get(`get/customer/${1}`)
-          .then(res => {
-            // eslint-disable-next-line no-console
-            console.log(res)
-            location.reload()
-          })
-          .catch(e => {
-            // eslint-disable-next-line no-console
-            console.log(e)
-          });
+      console.log(payload);
+      AxiosAPI.post("/set/threshold", payload)
+        //await HTTP.get(`get/customer/${1}`)
+        .then((res) => {
+          // eslint-disable-next-line no-console
+          console.log(res);
+          location.reload();
+        })
+        .catch((e) => {
+          // eslint-disable-next-line no-console
+          console.log(e);
+        });
     },
     getRandomData() {
       const arr = [];
@@ -488,7 +575,7 @@ export default {
       for (let i = 0; i < seriesCount; i += 1) {
         data.push({
           label: accessories[i],
-          data: Math.floor(Math.random() * 100) + 1
+          data: Math.floor(Math.random() * 100) + 1,
         });
       }
 
@@ -499,7 +586,7 @@ export default {
         return "0" + n;
       }
       return n;
-    }
+    },
   },
   computed: {
     donut() {
@@ -508,27 +595,27 @@ export default {
       let series = [
         {
           name: "Revenue",
-          data: revenueData.map(s => {
+          data: revenueData.map((s) => {
             return {
               name: s.label,
-              y: s.data
+              y: s.data,
             };
-          })
-        }
+          }),
+        },
       ];
       return {
         chart: {
           type: "pie",
-          height: 120
+          height: 120,
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
         title: false,
         plotOptions: {
           pie: {
             dataLabels: {
-              enabled: false
+              enabled: false,
             },
             borderColor: null,
             showInLegend: true,
@@ -537,11 +624,11 @@ export default {
             states: {
               hover: {
                 halo: {
-                  size: 1
-                }
-              }
-            }
-          }
+                  size: 1,
+                },
+              },
+            },
+          },
         },
         colors: [danger, info, primary],
         legend: {
@@ -551,18 +638,18 @@ export default {
           itemStyle: {
             color: "#495057",
             fontWeight: 100,
-            fontFamily: "Montserrat"
+            fontFamily: "Montserrat",
           },
           itemMarginBottom: 5,
-          symbolRadius: 0
+          symbolRadius: 0,
         },
         exporting: {
-          enabled: false
+          enabled: false,
         },
-        series
+        series,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
