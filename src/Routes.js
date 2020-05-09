@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Layout from '@/components/Layout/Layout';
 import Login from '@/pages/Login/Login';
 import ErrorPage from '@/pages/Error/Error';
+import Createuser from '@/pages/Createuser/Createuser';
 // Core
 import TypographyPage from '@/pages/Typography/Typography';
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+    },
+    {
+      path: '/createuser',
+      name: 'Createuser',
+      component: Createuser,
     },
     {
       path: '/error',

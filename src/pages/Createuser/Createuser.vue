@@ -3,18 +3,15 @@
     <b-container>
       <h5 class="auth-logo">
         <i class="fa fa-circle text-primary"></i>
-        dashboard
+        Create User
         <i class="fa fa-circle text-danger"></i>
       </h5>
       <Widget
         class="widget-auth mx-auto"
-        title="<h3 class='mt-0'>Login to your Web App</h3>"
+        title="<h3 class='mt-0'>Create User</h3>"
         customHeader
       >
-        <p class="widget-auth-info">
-          Use your username to sign in.
-        </p>
-        <form class="mt" @submit.prevent="login">
+        <form class="mt" @submit.prevent="createuser">
           <b-alert class="alert-sm" variant="danger" :show="!!errorMessage">
             {{ errorMessage }}
           </b-alert>
@@ -38,24 +35,49 @@
               placeholder="Password"
             />
           </div>
+          <div class="form-group">
+            <input
+              class="form-control no-border"
+              ref="email"
+              required
+              type="email"
+              name="email"
+              placeholder="email"
+            />
+          </div>
+          <div class="form-group">
+            <label
+              >Male:
+              <input
+                type="radio"
+                name="male"
+                value="male"
+                v-model="checkedGroupVModel"
+              /> </label
+            ><br />
+            <label
+              >Female:
+              <input
+                type="radio"
+                name="female"
+                value="female"
+                v-model="checkedGroupVModel"
+              /> </label
+            ><br />
+            <br />
+          </div>
           <b-button
             type="submit"
             size="sm"
             class="auth-btn mb-3"
             variant="inverse"
-            >Login</b-button
+            >submit</b-button
           >
         </form>
-        <p class="widget-auth-info">
-          Don't have an account? Sign up now!
-        </p>
-        <router-link class="d-block text-center" to="Createuser"
-          >Create an Account</router-link
-        >
       </Widget>
     </b-container>
     <footer class="auth-footer">
-      presented by farm team
+      presented by inwzaclub
     </footer>
   </div>
 </template>
@@ -71,10 +93,11 @@ export default {
   data() {
     return {
       errorMessage: null,
+      checkedGroupVModel: "male",
     };
   },
   methods: {
-    login() {
+    createuser() {
       const AxiosAPI = axios.create({
         baseURL: "https://api.inwza.club",
         timeout: 1000,
@@ -83,29 +106,34 @@ export default {
 
       const username = this.$refs.username.value;
       const password = this.$refs.password.value;
+      const email = this.$refs.email.value;
 
       let payload = {
-        "username": username,
-        "password": password,
+        username: username,
+        password: password,
+        email: email,
+        gender: this.checkedGroupVModel,
       };
+      console.log(payload);
 
-      AxiosAPI.post("/login", payload)
+      AxiosAPI.post("/users", payload)
         .then((res) => {
           // if status ok can go!
-          if (res.status == 200) {
+          if (res.status == 201) {
             window.localStorage.setItem("authenticated", true);
             this.$router.push("/app/dashboard");
           }
         })
         .catch((e) => {
-          console.log('cannot login with, ' + e)
-          this.$toasted.success('connot login with username or password', {
+          console.log("cannot login with, " + e);
+          this.$toasted.success("connot login with username or password", {
             action: {
-              text: 'Close',
+              text: "Close",
               onClick: (e, toastObject) => {
                 toastObject.goAway(0);
-              }
-            }})
+              },
+            },
+          });
         });
     },
   },
