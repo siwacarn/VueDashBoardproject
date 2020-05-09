@@ -1,13 +1,16 @@
-# Stage 1 - the build process
-FROM node:7.10 as build-deps
-WORKDIR /usr/src/app
-COPY package.json yarn.lock ./
-RUN yarn
-COPY . ./
+# develop
+FROM node:11.1-alpine as develop-stage
+WORKDIR /app
+COPY package*.json ./
+RUN yarn install
+COPY . .
+
+# build
+FROM develop-stage as build-stage
 RUN yarn build
 
-# Stage 2 - the production environment
-FROM nginx:1.12-alpine
-COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
+# production stage
+FROM nginx:1.15.7-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
