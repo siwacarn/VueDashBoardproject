@@ -41,6 +41,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Widget from "@/components/Widget/Widget";
 import BigStat from "./components/BigStat/BigStat";
 import mock from "./mock";
@@ -111,11 +112,10 @@ export default {
               label: {
                 formatter: function(params) {
                   return (
-                    "Precipitation  " +
+                    "Date: " +
                     params.value +
                     (params.seriesData.length
-                      ? "：" + params.seriesData[0].data
-                      : "")
+                      ? ", Value: " + params.seriesData[0].data: "")
                   );
                 }
               }
@@ -178,11 +178,10 @@ export default {
               label: {
                 formatter: function(params) {
                   return (
-                    "Precipitation  " +
+                    "Date: " +
                     params.value +
                     (params.seriesData.length
-                      ? "：" + params.seriesData[0].data
-                      : "")
+                      ? ", Value: " + params.seriesData[0].data: "")
                   );
                 }
               }
@@ -243,11 +242,10 @@ export default {
               label: {
                 formatter: function(params) {
                   return (
-                    "Precipitation  " +
+                    "Date: " +
                     params.value +
                     (params.seriesData.length
-                      ? "：" + params.seriesData[0].data
-                      : "")
+                      ? ", Value: " + params.seriesData[0].data: "")
                   );
                 }
               }
@@ -308,11 +306,10 @@ export default {
               label: {
                 formatter: function(params) {
                   return (
-                    "Precipitation  " +
+                    "Date: " +
                     params.value +
                     (params.seriesData.length
-                      ? "：" + params.seriesData[0].data
-                      : "")
+                      ? ", Value: " + params.seriesData[0].data: "")
                   );
                 }
               }
@@ -351,63 +348,41 @@ export default {
   },
   methods: {
     async getData() {
-     
-      //for(let i = 20 ; i > 0 ; i--) {
-       // d.push(date);
-       // d[c].setDate(d[c].getDate() - 1);
-        // eslint-disable-next-line no-console
-       // console.log(i+" ")
-            // eslint-disable-next-line no-console
-        //console.log(d[c].getFullYear()+"-"+this.appendLeadingZeroes(d[c].getMonth()+1)+"-"+this.appendLeadingZeroes(d[c].getDate())+"T00:00:00Z");
-       //var temp = d[c].getFullYear()+"-"+this.appendLeadingZeroes(d[c].getMonth()+1)+"-"+this.appendLeadingZeroes(d[c].getDate())+"T00:00:00Z"
-       
-       // c++
         await AxiosAPI.get("/sensors")
           //await HTTP.get(`get/customer/${1}`)
           .then(res => {
-            // eslint-disable-next-line no-console
-            //console.log(res.data);
-            
-            
-            for (var i=res.data.length-1;i>=0;i--){
+            // eslint-disable-next-line no-console  
+            for (var i=res.data.length-1; i>=0 ;i--){
+              // eslint-disable-next-line no-console
+              this.line1.series[0].data.push(res.data[i].temperature)
+              this.line2.series[0].data.push(res.data[i].humidity)
+              this.line3.series[0].data.push(res.data[i].soilmoisture)
+              this.line4.series[0].data.push(res.data[i].light)
+              // eslint-disable-next-line no-console
 
-            // eslint-disable-next-line no-console
-            console.log(res.data[i].temperature)
-            this.line1.series[0].data.push(res.data[i].temperature)
-            this.line2.series[0].data.push(res.data[i].humidity)
-            this.line3.series[0].data.push(res.data[i].soilmoisture)
-            this.line4.series[0].data.push(res.data[i].light)
-            // eslint-disable-next-line no-console
-            //console.log(new date(res.data[i].created_at+"+07:00"))
+              try {
+                var dateUTCString = new Date(res.data[i].created_at).toUTCString();
+              } catch (error) {
+                console.log("error to parsing time" + error)
+              }
 
-            var aestTime = new Date(res.data[i].created_at).toLocaleString("th-TH", {timeZone: "Asia/Bangkok"});
-            // eslint-disable-next-line no-console
-            console.log('Thai time: '+ new Date(aestTime))
-            //new date(res.data[i].created_at+"+07:00")
-            //new Date(aestTime)
-            let d = new Date(aestTime);
-            let date = d.getHours()+":"+this.setMinutesthis(d.getMinutes())
-            this.line1.xAxis[0].data.push(date)
-            this.line2.xAxis[0].data.push(date)
-            this.line3.xAxis[0].data.push(date)
-            this.line4.xAxis[0].data.push(date)
+              // convert to string date to Date obj
+              let d = new Date(dateUTCString)
+
+              // format time to show in graph
+              var dateStringFormat = d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear() + ' ' + d.getHours() + ":" + this.setMinutesthis(d.getMinutes())
+
+              // push the data to x-axis
+              this.line1.xAxis[0].data.push(dateStringFormat)
+              this.line2.xAxis[0].data.push(dateStringFormat)
+              this.line3.xAxis[0].data.push(dateStringFormat)
+              this.line4.xAxis[0].data.push(dateStringFormat)
             }
-            // eslint-disable-next-line no-console
-            //console.log(this.line1.xAxis[0].data)
-            // eslint-disable-next-line no-console
-            //console.log(this.line1.series[0].data)
-           
-            // eslint-disable-next-line no-console
-            
-            //this.caseVisit = res.data.result
           })
           .catch(e => {
             // eslint-disable-next-line no-console
             console.log(e);
-         });
-      //}
-      
-      
+         });     
     },
     // eslint-disable-next-line no-unused-vars
     setMinutesthis(m) {
@@ -415,15 +390,6 @@ export default {
         return "0"+m
       }
       return m
-    },
-    getRandomData() {
-      const arr = [];
-
-      for (let i = 0; i < 25; i += 1) {
-        arr.push(Math.random().toFixed(1) * 10);
-      }
-
-      return arr;
     },
     getRevenueData() {
       const data = [];
